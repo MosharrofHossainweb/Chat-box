@@ -1,5 +1,5 @@
 .account {
-    @apply w-full bg-[#B0D8DA] flex;
+    @apply w-full bg-[#B0D8DA] pt-10 pb-10 flex;
 }
 
 .account_text h1 {
@@ -33,7 +33,7 @@
 
 .account_form {
     @apply w-full  md:mt-3 mt-[100px] bg-[#fff] rounded-bl-[50px] rounded-tl-[50px]
-    lg:pt-[89px] lg:pb-[49px] mb-7 md:pt-[59px] md:pb-[69px] pt-[39px] pb-[49px];
+    lg:pt-[89px] lg:pb-[49px] mb-16 md:pt-[59px] md:pb-[69px] pt-[39px] pb-[49px];
 }
 .account_form h2{
     @apply lg:text-[48px] md:text-[36] text-[26px] text-center font-poppins font-bold 

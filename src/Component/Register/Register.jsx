@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa6';
 import '../../Component/Common/Loginrester.css';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import 'react-toastify/dist/ReactToastify.css';
-import { Flip, toast } from 'react-toastify';
+import { Flip, toast, Zoom } from 'react-toastify';
 
 const Register = () => {
   const [show, setShow] = useState(false);
@@ -67,7 +67,25 @@ const Register = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log('User registered:', user);
+
           navigate('/Login');
+
+          const auth = getAuth();
+          sendEmailVerification(auth.currentUser).then(() => {
+            // Email verification sent!
+            // ...
+            toast.success('🦄 E-mail varification sent !', {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Zoom,
+              });
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -90,9 +108,9 @@ const Register = () => {
   };
 
   return (
-    <section className="register bg-[#B0D8DA]">
+    <section className="register bg-[#B0D8DA] h-[1000px]">
       <div className="container">
-        <div className="account">
+        <div className="account mb-8  pb-9">
           <div className="account_text">
             <h1 className="lg:w-[390px]">
               Find 3D Objects, Mockups, and Illustrations here.

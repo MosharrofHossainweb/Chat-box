@@ -41,7 +41,7 @@ const Login = () => {
   };
 
   return (
-    <section className="register bg-[#B0D8DA]">
+    <section className="register bg-[#B0D8DA] h-[1000px]">
       <div className="container">
         <div className="account lg:h-[700px] h-[680px] pb-7">
           <div className="account_text">
