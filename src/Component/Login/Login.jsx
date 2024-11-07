@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa6';
 import '../../Component/Common/Loginrester.css';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Bounce, toast } from 'react-toastify';
+import { PulseLoader } from 'react-spinners';
 
 const Login = () => {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShow(!show);
   };
-
+  // ================firebase variable=============
+  const auth = getAuth();
+  // ================firebase variable=============
   // ============ Validation Part =========
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -29,6 +35,7 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     // Simple validation logic
     if (email === '') {
@@ -36,6 +43,60 @@ const Login = () => {
     }
     if (password === '') {
       setPasswordError('Enter your password');
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          setLoading(false);
+          // Signed in
+          const user = userCredential.user;
+         if(user.emailVerified=== false){
+          toast.error('E-mail is not varified!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
+         }else{
+          navigate('/')
+          toast.success('login Successfully', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+            });
+         }
+          // ...
+        })
+        .catch((error) => {
+          setLoading(false);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+            console.log(errorCode)
+          if(errorCode == 'auth/invalid-credential')
+          {
+            toast.error('Something is wrong!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              });
+          }
+        });
     }
     // Further validation or API call can go here
   };
@@ -87,7 +148,7 @@ const Login = () => {
               <h4 className="text-center lg:text-[36px] md:text-[26px] text-[16px] font-poppins font-medium text-[#A6A6A6]">
                 - OR -
               </h4>
-              <div className="form m-0 m-auto">
+              <div className="form m-auto">
                 <input
                   onChange={handleEmail}
                   className="input lg:w-[300px]"
@@ -100,7 +161,7 @@ const Login = () => {
                 <span className="input-border lg:w-[300px]"></span>
               </div>
               <br />
-              <div className="form m-0 m-auto relative">
+              <div className="form  m-auto relative">
                 {show ? (
                   <FaRegEyeSlash
                     className="absolute top-[15px] right-[10px]"
@@ -125,12 +186,20 @@ const Login = () => {
               </div>
             </div>
             <div className="submit_button flex justify-center items-center lg:mt-[50px] md:mt-[30px] mt-[20px]">
-              <button
-                onClick={handleSubmit}
-                className="sub bg-[#B0D8DA] mb-9 hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl"
-              >
-                Login
-              </button>
+            <div className="submit_button flex justify-center items-center lg:mt-[30px] md:mt-[20px] mt-[20px]">
+              {loading ? (
+                <button className="sub bg-[#B0D8DA] hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl">
+                  <PulseLoader color="#fff" />
+                </button>
+              ) : (
+                <button
+                  onClick={handleSubmit}
+                  className="sub bg-[#B0D8DA] hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl"
+                >
+                  Login
+                </button>
+              )}
+            </div>
             </div>
             <div className="login_text lg:pb-9">
               <h5 className="text-center lg:text-[26px] md:text-[20px] text-[14px] font-poppins lg:mt-[10px] md:mt-[20px] mt-[10px]">

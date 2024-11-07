@@ -5,14 +5,16 @@ import Register from './Component/Register/Register'
 import Login from './Component/Login/Login'
 import app from './firebase.config'
 import { ToastContainer, toast } from 'react-toastify';
+import Home from './Pages/Home'
 const App = () => {
 
   const myroute = createBrowserRouter(createRoutesFromElements(
 
    <Route>
-      <Route path='/' element={<Register/>}/>
+      <Route path='/' element={<Home/>}/>
       <Route path='/login' element={<Login/>}/>
-      <Route path='/register' element={<Register/>}/>
+      <Route path='/register' element={<Register/>}/> 
+      
    </Route>
   ))
     
