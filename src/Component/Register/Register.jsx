@@ -59,24 +59,23 @@ const Register = () => {
     setLoading(true);
     e.preventDefault();
 
-    // Simple validation logic
-    let isValid = true;
+    // ==========login condition============
+    
 
     if (fullName === '') {
       setFullnameError('Enter your name');
-      isValid = false;
+    
     }
     if (email === '') {
       setEmailError('Enter your email');
-      isValid = false;
+
     }
     if (password === '') {
       setPasswordError('Enter your password');
-      isValid = false;
+      
     }
-
-    if (isValid) {
-      // Further validation or API call can go here
+    else{
+      setLoading(true)
 
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -225,7 +224,9 @@ const Register = () => {
                   required
                   type="text"
                   value={fullName}
+                  
                 />
+                
                 <p>{fullNameError}</p>
                 <span className="input-border"></span>
               </div>

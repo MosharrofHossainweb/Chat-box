@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { FaRegEyeSlash, FaRegEye } from 'react-icons/fa6';
 import '../../Component/Common/Loginrester.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { Bounce, toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { useDispatch } from 'react-redux';
+import { userData } from '../../Slice/UserSlice';
 
 const Login = () => {
+  // =============normal variable==========
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -14,6 +17,9 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setShow(!show);
   };
+  // ===============Redux variable=================
+  const dispatch= useDispatch()
+  // ===============Redux variable=================
   // ================firebase variable=============
   const auth = getAuth();
   // ================firebase variable=============
@@ -63,6 +69,10 @@ const Login = () => {
             });
          }else{
           navigate('/')
+          // =============set data to Redux=============
+          dispatch(userData(userCredential.user))
+          // =============set data to Redux=============
+          console.log(userCredential.user)
           toast.success('login Successfully', {
             position: "top-right",
             autoClose: 5000,
@@ -74,6 +84,9 @@ const Login = () => {
             theme: "light",
             transition: Bounce,
             });
+            // ===============set data to the local host============
+            localStorage.setItem('user',JSON.stringify(userCredential.user))
+            // ===============set data to the local host============
          }
           // ...
         })
@@ -104,7 +117,7 @@ const Login = () => {
   return (
     <section className="register bg-[#B0D8DA] h-[1000px]">
       <div className="container">
-        <div className="account lg:h-[700px] h-[680px] pb-7">
+        <div className="account lg:h-[700px] h-[890px] pb-7">
           <div className="account_text">
             <h1 className="lg:w-[390px]">
               Find 3D Objects, Mockups, and Illustrations here.
@@ -201,6 +214,7 @@ const Login = () => {
               )}
             </div>
             </div>
+              
             <div className="login_text lg:pb-9">
               <h5 className="text-center lg:text-[26px] md:text-[20px] text-[14px] font-poppins lg:mt-[10px] md:mt-[20px] mt-[10px]">
                 Don't have an account?
@@ -212,6 +226,7 @@ const Login = () => {
                   Register
                 </span>
               </h5>
+            <Link className='text-center mb-[50px] font-semibold hover:text-blue-500 mt-2 flex justify-center' to={'/forgetPassword'}>Forget password?Do you want to reset your password?</Link>
             </div>
           </div>
         </div>
