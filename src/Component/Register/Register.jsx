@@ -60,22 +60,17 @@ const Register = () => {
     e.preventDefault();
 
     // ==========login condition============
-    
 
     if (fullName === '') {
       setFullnameError('Enter your name');
-    
     }
     if (email === '') {
       setEmailError('Enter your email');
-
     }
     if (password === '') {
       setPasswordError('Enter your password');
-      
-    }
-    else{
-      setLoading(true)
+    } else {
+      setLoading(true);
 
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -91,7 +86,7 @@ const Register = () => {
             // ...
             // =========sent user name and profile picture=========
             updateProfile(auth.currentUser, {
-              displayName: 'fullName',
+              displayName: fullName,
               photoURL:
                 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_640.png',
             }).then(() => {
@@ -132,10 +127,9 @@ const Register = () => {
   };
   // ====================google sign in button==============
   const handelGoogle = () => {
-    
     signInWithPopup(auth, provider)
-    .then((result) => {
-        navigate('/')
+      .then((result) => {
+        navigate('/');
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
@@ -224,9 +218,8 @@ const Register = () => {
                   required
                   type="text"
                   value={fullName}
-                  
                 />
-                
+
                 <p>{fullNameError}</p>
                 <span className="input-border"></span>
               </div>

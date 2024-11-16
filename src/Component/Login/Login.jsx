@@ -117,7 +117,7 @@ const Login = () => {
   return (
     <section className="register bg-[#B0D8DA] h-[1000px]">
       <div className="container">
-        <div className="account lg:h-[700px] h-[890px] pb-7">
+        <div className="account lg:h-[700px] h-[800px] pb-7">
           <div className="account_text">
             <h1 className="lg:w-[390px]">
               Find 3D Objects, Mockups, and Illustrations here.
@@ -126,7 +126,7 @@ const Login = () => {
               <img src="image/registerbg.png" alt="bg" />
             </div>
           </div>
-          <div className="account_form lg:h-[700px] h-[400px] mt-[20px] lg:mt-10">
+          <div className="account_form lg:h-[800px] h-[400px] mt-[20px] lg:mt-10">
             <h2 className="mb-5">Login</h2>
 
             <div className="login_form lg:mt-3">
