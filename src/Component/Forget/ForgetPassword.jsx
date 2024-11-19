@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../Forget/Forgetpasword.css';
 import { Link } from 'react-router-dom';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-import { Bounce, toast } from 'react-toastify';
+import { Bounce, Slide, toast } from 'react-toastify';
 
 // ===========Firebase===========
 const auth = getAuth();
@@ -13,7 +13,17 @@ const ForgetPassword = () => {
 
   const handelRest = () => {
     if (!inputData) {
-      alert('Enter your email');
+      toast.error('Enter your Email!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+        })
     } else {
       sendPasswordResetEmail(auth, inputData)
         .then(() => {
@@ -34,6 +44,7 @@ const ForgetPassword = () => {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
+          
           // ..
         });
     }
