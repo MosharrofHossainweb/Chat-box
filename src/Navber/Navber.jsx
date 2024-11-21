@@ -24,7 +24,7 @@ const Navber = () => {
     <>
       <nav className="p-5 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] absolute top-[50%] rounded-sm translate-y-[-50%] right-5">
         <div className="icon_box flex gap-5 flex-col items-center">
-          <Link to={'/'}>
+          <Link to={'/alluserPages'}>
             <FaUserTie className="text-4xl active:scale-[1.1] m-1  hover:text-yellow-700" />
           </Link>
           <Link to={'/'}>

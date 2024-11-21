@@ -7,7 +7,7 @@ import { Bounce, toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
 import { useDispatch } from 'react-redux';
 import { userData } from '../../Slice/UserSlice';
-
+import { getDatabase, ref, set } from 'firebase/database';
 const Login = () => {
   // =============normal variable==========
   const [show, setShow] = useState(false);
@@ -18,10 +18,11 @@ const Login = () => {
     setShow(!show);
   };
   // ===============Redux variable=================
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
   // ===============Redux variable=================
   // ================firebase variable=============
   const auth = getAuth();
+  const db = getDatabase();
   // ================firebase variable=============
   // ============ Validation Part =========
   const [email, setEmail] = useState('');
@@ -55,59 +56,64 @@ const Login = () => {
           setLoading(false);
           // Signed in
           const user = userCredential.user;
-         if(user.emailVerified=== false){
-          toast.error('E-mail is not varified!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-            });
-         }else{
-          navigate('/')
-          // =============set data to Redux=============
-          dispatch(userData(userCredential.user))
-          // =============set data to Redux=============
-          console.log(userCredential.user)
-          toast.success('login Successfully', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-            });
-            // ===============set data to the local host============
-            localStorage.setItem('user',JSON.stringify(userCredential.user))
-            // ===============set data to the local host============
-         }
-          // ...
-        })
-        .catch((error) => {
-          setLoading(false);
-          const errorCode = error.code;
-          const errorMessage = error.message;
-            console.log(errorCode)
-          if(errorCode == 'auth/invalid-credential')
-          {
-            toast.error('Something is wrong!', {
-              position: "top-right",
+          if (user.emailVerified === false) {
+            toast.error('E-mail is not varified!', {
+              position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
-              theme: "light",
+              theme: 'light',
               transition: Bounce,
-              });
+            });
+          } else {
+            navigate('/');
+            // =============set data to Redux=============
+            dispatch(userData(userCredential.user));
+            // =============set data to Redux=============
+            console.log(userCredential.user);
+            toast.success('login Successfully', {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
+            // ===============set data to the local host============
+            localStorage.setItem('user', JSON.stringify(userCredential.user));
+            // ===============set data to the local host============
+            // ===================Set User==========================
+            set(ref(db, 'allusers/' + user.userCredential.user.uid ), {
+              userName:userCredential.user.displayName,
+              userPhoto:userCredential.user.photoURL,
+            });
+            // ===================Set User==========================
+          }
+          // ...
+        })
+        .catch((error) => {
+          setLoading(false);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          if (errorCode == 'auth/invalid-credential') {
+            toast.error('Something is wrong!', {
+              position: 'top-right',
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+              transition: Bounce,
+            });
           }
         });
     }
@@ -199,22 +205,22 @@ const Login = () => {
               </div>
             </div>
             <div className="submit_button flex justify-center items-center lg:mt-[50px] md:mt-[30px] mt-[20px]">
-            <div className="submit_button flex justify-center items-center lg:mt-[30px] md:mt-[20px] mt-[20px]">
-              {loading ? (
-                <button className="sub bg-[#B0D8DA] hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl">
-                  <PulseLoader color="#fff" />
-                </button>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  className="sub bg-[#B0D8DA] hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl"
-                >
-                  Login
-                </button>
-              )}
+              <div className="submit_button flex justify-center items-center lg:mt-[30px] md:mt-[20px] mt-[20px]">
+                {loading ? (
+                  <button className="sub bg-[#B0D8DA] hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl">
+                    <PulseLoader color="#fff" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    className="sub bg-[#B0D8DA] hover:bg-[#4b6a6c] lg:w-[574px] lg:h-[74px] md:w-[400px] md:h-[60px] w-[220px] h-[50px] rounded-xl"
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
             </div>
-            </div>
-              
+
             <div className="login_text lg:pb-9">
               <h5 className="text-center lg:text-[26px] md:text-[20px] text-[14px] font-poppins lg:mt-[10px] md:mt-[20px] mt-[10px]">
                 Don't have an account?
@@ -226,7 +232,12 @@ const Login = () => {
                   Register
                 </span>
               </h5>
-            <Link className='text-center mb-[50px] font-semibold hover:text-blue-500 mt-2 flex justify-center' to={'/forgetPassword'}>Forget password?Do you want to reset your password?</Link>
+              <Link
+                className="text-center mb-[50px] font-semibold hover:text-blue-500 mt-2 flex justify-center"
+                to={'/forgetPassword'}
+              >
+                Forget password?Do you want to reset your password?
+              </Link>
             </div>
           </div>
         </div>

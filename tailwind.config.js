@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     extend: {
-      color:{
+      colors:{
         'brandcolor' : '##B0D8DA'
       }
       
