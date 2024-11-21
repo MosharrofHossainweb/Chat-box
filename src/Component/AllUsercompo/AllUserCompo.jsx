@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import CommonUser from '../../Common/CommonUser';
 import Commonbutonv1 from '../../Common/Commonbutonv1';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
 const AllUserCompo = () => {
   // =================Redux==============================
 
@@ -20,7 +20,7 @@ const AllUserCompo = () => {
   // ======================Realtime data==================
 
   useEffect(() => {
-    onValue((db, 'allusers/'), (snapshot) => {
+    onValue(ref(db, 'allusers/'), (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
         arr.push(item.val());
@@ -36,8 +36,8 @@ const AllUserCompo = () => {
       <section className="Alluser py-[60px]">
         <div className="container">
           <h2 className="text-2xl font-semibold mb-5">All User</h2>
-          {alluserData.map((item, index) => (
-            <div className="single user flex justify-between">
+          {alluserData.map((item) => (
+            <div className="single user flex justify-between " key={item.id}>
               <CommonUser
                 CommonUserphoto={item.userPhoto}
                 commonUsername={item.userName}

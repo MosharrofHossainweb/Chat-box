@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Profile = () => {
   // Redux data
-  const sliceUser = useSelector((state) => state.currentUser.value)
+  const sliceUser = useSelector((state) => state.currentUser.value);
 
   return (
     <>
@@ -23,9 +23,15 @@ const Profile = () => {
 
         {/* Profile Info */}
         <div className="text-center">
-          <h1 className="text-xl font-bold">{sliceUser.displayName || 'Mosharrof Hossain Minhaz'}</h1>
-          <p className="text-sm text-gray-500">{sliceUser?.friends || '2.7K'} friends</p>
-          <p className="text-sm text-gray-500">{sliceUser?.email || 'Email'} mosharrofhossainpdl@gmail.com</p>
+          <h1 className="text-xl font-bold">
+            {sliceUser?.displayName || 'Mosharrof Hossain Minhaz'}
+          </h1>
+          <p className="text-sm text-gray-500">
+            {sliceUser?.friends || '2.7K'} friends
+          </p>
+          <p className="text-sm text-gray-500">
+            {sliceUser?.email || 'Email'} mosharrofhossainpdl@gmail.com
+          </p>
         </div>
 
         {/* Buttons */}
@@ -39,7 +45,9 @@ const Profile = () => {
           <button className="bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300">
             <span className="text-gray-500">⋮</span>
           </button>
-          <Link className="ml-5" to={'/login'}>Log Out</Link>
+          <Link className="ml-5" to={'/login'}>
+            Log Out
+          </Link>
         </div>
       </div>
     </>

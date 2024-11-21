@@ -89,9 +89,9 @@ const Login = () => {
             localStorage.setItem('user', JSON.stringify(userCredential.user));
             // ===============set data to the local host============
             // ===================Set User==========================
-            set(ref(db, 'allusers/' + user.userCredential.user.uid ), {
-              userName:userCredential.user.displayName,
-              userPhoto:userCredential.user.photoURL,
+            set(ref(db, 'allusers/' + user.userCredential.user.uid), {
+              userName: userCredential.user.displayName,
+              userPhoto: userCredential.user.photoURL,
             });
             // ===================Set User==========================
           }
