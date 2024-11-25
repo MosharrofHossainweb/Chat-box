@@ -73,7 +73,7 @@ const Login = () => {
             // =============set data to Redux=============
             dispatch(userData(userCredential.user));
             // =============set data to Redux=============
-            console.log(userCredential.user);
+            // console.log(userCredential.user);
             toast.success('login Successfully', {
               position: 'top-right',
               autoClose: 5000,
@@ -89,7 +89,7 @@ const Login = () => {
             localStorage.setItem('user', JSON.stringify(userCredential.user));
             // ===============set data to the local host============
             // ===================Set User==========================
-            set(ref(db, 'allusers/' + user.userCredential.user.uid), {
+            set(ref(db, 'allusers/' + user.uid), {
               userName: userCredential.user.displayName,
               userPhoto: userCredential.user.photoURL,
             });
