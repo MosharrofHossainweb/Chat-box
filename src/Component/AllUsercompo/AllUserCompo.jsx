@@ -19,7 +19,7 @@ const AllUserCompo = () => {
   // ===============Firebaae variable=====================
   // ==================Function part======================
   const handelAdd = (data) => {
-    set(push(), {
+    set(push(ref(db,'friendReq')), {
       senderId:reduxUser.uid,
       senderName:reduxUser.displayName,
       senderPhoto:reduxUser.photoURL,

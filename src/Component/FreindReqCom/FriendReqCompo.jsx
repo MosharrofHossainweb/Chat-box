@@ -22,7 +22,7 @@ const FriendReqCompo = () => {
   // .......................
     useEffect(()=>{
       
-      onValue(ref(db,'friendRequest/'), (snapshot) => {
+      onValue(ref(db,'friendReq/'), (snapshot) => {
         let arr =[]
         snapshot.forEach((item)=>{
           if(item.val().recieverId== reduxUser.uid){

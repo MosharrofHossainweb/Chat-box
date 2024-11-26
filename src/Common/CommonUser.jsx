@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CommonUser = (CommonUserphoto,commonUsername) => {
+const CommonUser = ({CommonUserphoto,commonUsername}) => {
   return (
     <>
       <div className="Common flex gap-5 items-center">
