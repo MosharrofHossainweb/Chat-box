@@ -51,6 +51,11 @@ const Navber = () => {
             <FaUsersGear className="text-4xl active:scale-[1.1] m-1  hover:text-yellow-700" />
           </Link>
           {/* ========================================People part================================ */}
+          {/* ========================================People part================================ */}
+          <Link to={'/friends'}>
+            <FaUsersGear className="text-4xl active:scale-[1.1] m-1  hover:text-yellow-700" />
+          </Link>
+          {/* ========================================People part================================ */}
           {/* ======================================Massage part================================== */}
           <Link to={'/'}>
             <MdMessage className="text-4xl active:scale-[1.1] m-1 hover:text-yellow-700 " />

@@ -56,7 +56,7 @@ const AllUserCompo = () => {
                 CommonUserphoto={item.userPhoto}
                 commonUsername={item.userName}
               />
-              <CommonButonv1 commonButton_click={()=>handelAdd(item)} CommonButonv1conten={'Add Freind'} />
+              <CommonButonv1 commonButton_click={()=>handelAdd(item)} commonButonv1conten={'Add Freind'} />
             </div>
           ))}
         </div>

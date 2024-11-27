@@ -5,7 +5,7 @@ const RemoveButton = ({ removeButtonContent, removeButtonClick }) => {
     <>
       <button
         onClick={removeButtonClick}
-        className="py-2 px-5 bg-red-700 text-white font-semibold active:scale-[1.1] rounded-lg"
+        className="py-2 px-5 bg-red-700 text-white font-semibold active:scale-[1.1] rounded-lg m-5"
       >
         {removeButtonContent}
       </button>
