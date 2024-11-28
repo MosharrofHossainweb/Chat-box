@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import RemoveButton from '../../Common/RemoveButton/RemoveButton';
 import CommonButonv1 from '../../Common/CommonButtonv1/CommonButonv1';
 import CommonUser from '../../Common/CommonUser';
-import { getDatabase, ref, onValue, remove, set } from 'firebase/database';
+import { getDatabase, ref, onValue, remove, set, push } from 'firebase/database';
 
 const FriendReqCompo = () => {
   // ===============================redux data=====================================
@@ -22,7 +22,7 @@ const FriendReqCompo = () => {
   };
 
   const handelConfirm = (friendData) => {
-    set(ref(db, 'friends/'), {
+    set(push(ref(db, 'friends/')), {
       friendId: friendData.senderId,
       friendPhoto: friendData.senderPhoto,
       friendName: friendData.senderName,
@@ -30,6 +30,7 @@ const FriendReqCompo = () => {
       currentUserName: reduxUser.displayName,
       currentUserPhoto: reduxUser.photoURL,
     });
+    remove(ref(db, 'friendReq/' + friendData.key));
   };
   // ================================All function==================================
   // ==========================Realtime Data base==================================
