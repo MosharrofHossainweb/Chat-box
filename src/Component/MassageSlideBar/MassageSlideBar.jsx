@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import CommonButonv1 from '../../Common/CommonButtonv1/CommonButonv1';
 import CommonUser from '../../Common/CommonUser';
-
 import { useSelector } from 'react-redux';
-import { getDatabase, ref, onValue, set, push, remove } from 'firebase/database';
+import { getDatabase, onValue, ref } from 'firebase/database';
 
-const FriendCompo = () => {
+const MassageSlideBar = () => {
   // =================Redux Data======================
   const sliceUser = useSelector((state) => state.currentUser.value);
   // =================Redux Data======================
@@ -16,17 +14,6 @@ const FriendCompo = () => {
   const db = getDatabase();
 
   // ===================firebase variable=============
-  // ===================all function==================
-  const handelBlock = (blockUserData) => {
-    set(push(ref(db, 'blockusers/' )), {
-     blockUserId:blockUserData.friendId,
-     blockUseName:blockUserData.friendName,
-     blockUserPhoto:blockUserData.friendPhoto,
-     currentUserId:sliceUser.uid
-    });
-    remove(ref(db,'friends/' + blockUserData.key))
-  };
-  // ===================all function==================
   // ==================realtime database==============
   useEffect(() => {
     onValue(ref(db, 'friends/'), (snapshot) => {
@@ -43,7 +30,7 @@ const FriendCompo = () => {
           arr.push({
             friendId: item.val().currentUserId,
             friendName: item.val().currentUserName,
-            friendPhoto: item.val().currentUserPhoto,
+            friendPhoto: item.val().CommonUserphoto,
             key: item.key,
           });
         }
@@ -55,26 +42,19 @@ const FriendCompo = () => {
 
   return (
     <>
-      <section className="Alluser py-[60px]">
-        <div className="container">
-          <h2 className="text-2xl font-semibold mb-5">Friends</h2>
-          {allFriend.map((item) => (
-            <div key={item.key} className="single_user flex justify-between ">
-              <CommonUser
-                commonUsername={item.friendName}
-                CommonUserphoto={item.friendPhoto}
-              />
-              {/* <RemoveButton removeButtonContent={'Unfriend'} /> */}
-              <CommonButonv1
-                commonButton_click={() => handelBlock(item)}
-                commonButonv1conten={'Block'}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
+      <div className="massagebar w-[400px] bg-slate-400 p-2 h-screen overflow-y-scroll">
+        <h2>Friends</h2>
+        {allFriend.map((item) => (
+          <div key={item.key} className="single_user border-b-2 py-4">
+            <CommonUser
+              commonUsername={item.friendName}
+              CommonUserphoto={item.friendPhoto}
+            />
+          </div>
+        ))}
+      </div>
     </>
   );
 };
 
-export default FriendCompo;
+export default MassageSlideBar;

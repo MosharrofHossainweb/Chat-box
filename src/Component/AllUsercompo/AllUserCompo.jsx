@@ -27,6 +27,7 @@ const AllUserCompo = () => {
       recieverName: data.userName,
       recieverPhoto: data.userPhoto,
     });
+    
   };
   // ==================Function part======================
   // ======================Realtime data==================

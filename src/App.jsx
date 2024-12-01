@@ -19,6 +19,8 @@ import FriendReqPage from './Pages/FriendReqPage';
 import SenderReqCompo from './Component/SenderReqCompo/SenderReqCompo';
 
 import FriendPage from './Pages/FriendPage';
+import BlockUserPage from './Pages/BlockUserPage';
+import MassagePage from './Pages/MassagePage';
 const App = () => {
   const myroute = createBrowserRouter(
     createRoutesFromElements(
@@ -29,6 +31,8 @@ const App = () => {
           <Route path="/friendReq" element={<FriendReqPage />} />
           <Route path="/sendReq" element={<SenderReqCompo />} />
           <Route path="/friends" element={<FriendPage />} />
+          <Route path="/blockUserPage" element={<BlockUserPage />} />
+          <Route path="/massagePage" element={<MassagePage />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

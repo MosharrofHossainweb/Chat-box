@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUserTie } from 'react-icons/fa';
 import { FaUserPlus } from 'react-icons/fa';
 import { FaUserSlash } from 'react-icons/fa';
+import { FaArrowsDownToPeople } from "react-icons/fa6";
 
 import { MdMessage } from 'react-icons/md';
 import { MdLogout } from 'react-icons/md';
@@ -37,7 +38,7 @@ const Navber = () => {
           </Link>
           {/* ===================================Friends Requst=========================== */}
           {/* ===================================Block list part=========================== */}
-          <Link to={'/'}>
+          <Link to={'/blockUserPage'}>
             <FaUserSlash className="text-4xl active:scale-[1.1] m-1  hover:text-yellow-700" />
           </Link>
           {/* ===================================Block list part=========================== */}
@@ -48,7 +49,7 @@ const Navber = () => {
           {/* ===================================Profile part=============================== */}
           {/* ========================================People part================================ */}
           <Link to={'/SendReq'}>
-            <FaUsersGear className="text-4xl active:scale-[1.1] m-1  hover:text-yellow-700" />
+            <FaArrowsDownToPeople className="text-4xl active:scale-[1.1] m-1  hover:text-yellow-700" />
           </Link>
           {/* ========================================People part================================ */}
           {/* ========================================People part================================ */}
@@ -57,7 +58,7 @@ const Navber = () => {
           </Link>
           {/* ========================================People part================================ */}
           {/* ======================================Massage part================================== */}
-          <Link to={'/'}>
+          <Link to={'/massagePage'}>
             <MdMessage className="text-4xl active:scale-[1.1] m-1 hover:text-yellow-700 " />
           </Link>
           {/* ======================================Massage part================================== */}
